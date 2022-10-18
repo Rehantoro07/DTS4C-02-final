@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
+import Header from './components/Header/Header';
 
 function App() {
 
@@ -10,7 +11,7 @@ function App() {
 
   return (
     <>
-
+      <Header />
     </>
   );
 }
