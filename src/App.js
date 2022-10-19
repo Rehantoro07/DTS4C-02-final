@@ -1,17 +1,23 @@
-import axios from 'axios';
-import { useEffect } from 'react';
+import Main from './pages/Main';
 import Header from './components/Header/Header';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import DetailNews from './pages/DetailNews';
+import { GlobalProvider } from './context/GlobalContext';
+import Footer from './components/Footer/Footer';
 
 function App() {
-
-  useEffect(() => {
-    axios.get('https://berita-indo-api.vercel.app/v1/bbc-news')
-      .then((res) => console.log(res))
-  }, [])
-
   return (
     <>
-      <Header />
+      <BrowserRouter>
+        <GlobalProvider>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Main />} />
+            <Route path='/detail' element={<DetailNews />} />
+          </Routes>
+          <Footer />
+        </GlobalProvider>
+      </BrowserRouter>
     </>
   );
 }
