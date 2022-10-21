@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -6,9 +7,17 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
+import Button from '@mui/material/Button';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { AccountCircle } from '@mui/icons-material';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../config/firebase';
+// import { listener } from "../../utils/firebase/listener";
 
 const Search = styled('div')(({ theme }) => ({
 
@@ -53,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const SearchAppBar = () => {
   const navigate = useNavigate()
@@ -62,6 +71,32 @@ const SearchAppBar = () => {
     console.log('clicked')
     navigate('/')
   }
+
+  const login = () => {
+    console.log('clicked')
+    navigate('/login')
+  }
+
+  const [user] = useAuthState(auth);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const onLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -92,6 +127,41 @@ const SearchAppBar = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
+          {user ?
+            <>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem>{user.email}</MenuItem>
+                <MenuItem onClick={onLogout}>Logout</MenuItem>
+              </Menu>
+            </> :
+            
+            <Button onClick={login} color="inherit" className={({ isActive }) => isActive ? 'nav-active' : 'nav-inactive'}>Login</Button>
+          }
         </Toolbar>
       </AppBar>
     </Box>
@@ -99,36 +169,3 @@ const SearchAppBar = () => {
 }
 
 export default SearchAppBar
-
-
-
-
-
-
-
-
-
-
-
-// import './Header.css'
-// import search from '../../assets/search.png'
-// import hamburger from '../../assets/hamburger.png'
-
-// const Header = () => {
-//   return (
-//     <header>
-//       <div className='header-wrapper'>
-//         <div className='brand'>
-//           <span>News</span>
-//           <span>Portal</span>
-//         </div>
-//         <div className='right-nav'>
-//           <img src={search} alt="" />
-//           <img src={hamburger} alt="" />
-//         </div>
-//       </div>
-//     </header>
-//   )
-// }
-
-// export default Header

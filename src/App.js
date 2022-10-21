@@ -1,9 +1,11 @@
+import SignIn from './components/SignIn/SignIn';
+import Register from './components/Register/Register';
 import Main from './pages/Main';
 import Header from './components/Header/Header';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import DetailNews from './pages/DetailNews';
-import { GlobalProvider } from './context/GlobalContext';
 import Footer from './components/Footer/Footer';
+import DetailNews from './pages/DetailNews';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { GlobalProvider } from './context/GlobalContext';
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <GlobalProvider>
           <Header />
           <Routes>
+            <Route path='/login' element={<SignIn />} />
+            <Route path='/register' element={<Register />} />
             <Route path='/' element={<Main />} />
             <Route path='/detail' element={<DetailNews />} />
           </Routes>
