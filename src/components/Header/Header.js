@@ -19,7 +19,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../config/firebase';
 import { GlobalContext } from '../../context/GlobalContext';
 // import { listener } from "../../utils/firebase/listener";
-import Logo from "../../assets/news.png"
+import Logo from '../../assets/dove.png'
 
 const Search = styled('div')(({ theme }) => ({
 
@@ -107,7 +107,7 @@ const SearchAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -115,21 +115,24 @@ const SearchAppBar = () => {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
-          {/* <img src={Logo} width="45"/> */}
+          </IconButton> */}
+          <img src={Logo} width={35} style={{ cursor: 'pointer' }} onClick={home} />
           <Typography
-            onClick={home}
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          ><Typography sx={{
+          ><Typography onClick={home} sx={{
             cursor: 'pointer',
+            marginLeft: '1rem',
             width: 'fit-content'
           }}>DTS NEWS
             </Typography>
           </Typography>
-          <Search>
+          <Search
+            sx={{
+              marginLeft: '1rem'
+            }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -149,6 +152,9 @@ const SearchAppBar = () => {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                sx={{
+                  marginLeft: '1rem'
+                }}
               >
                 <AccountCircle />
               </IconButton>

@@ -32,7 +32,9 @@ const Register = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs"  sx={{
+            marginBottom: '120px'
+        }}>
             <Box
                 sx={{
                     mt: 10,

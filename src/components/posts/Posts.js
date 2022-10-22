@@ -62,43 +62,44 @@ const Posts = () => {
                 {datas.filter((data) => data.title.toLowerCase().includes(search)).map((data, i) => {
                   return (
                     <>
-                      <div key={i}>
-                        <Card sx={{
-                          maxWidth: 330,
+                      <Card
+                        key={i}
+                        variant="outlined"
+                        sx={{
+                          maxWidth: 325,
                           height: '350px',
                           position: 'relative',
                         }}>
-                          <CardMedia
-                            component="img"
-                            height="140"
-                            image={data.image}
-                          />
-                          <CardContent>
-                            <Typography gutterBottom variant="h5" component="div" sx={{
-                              lineHeight: '1.6rem'
-                            }}>
-                              {data.title}
-                            </Typography>
-                            <Typography variant="body2" component="p" sx={{
-                              fontSize: '12px',
-                              color: 'gray'
-                            }}>
-                              {data.pusblised_at}
-                            </Typography>
-                          </CardContent>
-                          <CardActions sx={{
-                            width: '100%',
-                            position: 'absolute',
-                            bottom: '10px',
-                            left: '8px',
-                            display: 'flex',
-                            justifyContent: 'space-between',
+                        <CardMedia
+                          component="img"
+                          height="140"
+                          image={data.image}
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="div" sx={{
+                            lineHeight: '1.6rem'
                           }}>
-                            <Button size='small' variant='contained' sx={{
-                            }} value={i} onClick={handleDetail} >More Detail</Button>
-                          </CardActions>
-                        </Card>
-                      </div>
+                            {data.title}
+                          </Typography>
+                          <Typography variant="body2" component="p" sx={{
+                            fontSize: '12px',
+                            color: 'gray'
+                          }}>
+                            {data.pusblised_at}
+                          </Typography>
+                        </CardContent>
+                        <CardActions sx={{
+                          width: '100%',
+                          position: 'absolute',
+                          bottom: '10px',
+                          left: '8px',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                        }}>
+                          <Button size='small' variant='contained' sx={{
+                          }} value={i} onClick={handleDetail} >More Detail</Button>
+                        </CardActions>
+                      </Card>
                     </>
                   )
                 })}

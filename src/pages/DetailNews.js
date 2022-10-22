@@ -29,9 +29,7 @@ const DetailNews = () => {
 
   return (
     <>
-
       <Container>
-
         {datas === null ?
           <>
             <Skeleton variant="rounded" width={'100%'} height={'450px'} sx={{
@@ -49,8 +47,12 @@ const DetailNews = () => {
                 display: 'flex',
                 paddingTop: '1rem',
                 alignItems: 'center',
-                marginBottom: '1rem',
-                gap: '2rem'
+                margin: '0 auto',
+                paddingBottom: '1rem',
+                paddingTop: '1.5rem',
+                gap: '1rem',
+                maxWidth: 1100,
+                position: 'relative'
               }}>
               <Typography onClick={home} sx={{
                 cursor: 'pointer'

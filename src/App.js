@@ -12,14 +12,16 @@ function App() {
     <>
       <BrowserRouter>
         <GlobalProvider>
-          <Header />
-          <Routes>
-            <Route path='/login' element={<SignIn />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/' element={<Main />} />
-            <Route path='/detail/:id' element={<DetailNews />} />
-          </Routes>
-          <Footer />
+          <div className="container">
+            <Header />
+            <Routes>
+              <Route path='/login' element={<SignIn />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/' element={<Main />} />
+              <Route path='/detail/:id' element={<DetailNews />} />
+            </Routes>
+            <Footer />
+          </div>
         </GlobalProvider>
       </BrowserRouter>
     </>
