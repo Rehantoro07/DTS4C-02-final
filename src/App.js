@@ -17,7 +17,7 @@ function App() {
             <Route path='/login' element={<SignIn />} />
             <Route path='/register' element={<Register />} />
             <Route path='/' element={<Main />} />
-            <Route path='/detail' element={<DetailNews />} />
+            <Route path='/detail/:id' element={<DetailNews />} />
           </Routes>
           <Footer />
         </GlobalProvider>

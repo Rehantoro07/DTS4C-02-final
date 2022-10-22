@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,11 +13,13 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AccountCircle } from '@mui/icons-material';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../config/firebase';
+import { GlobalContext } from '../../context/GlobalContext';
 // import { listener } from "../../utils/firebase/listener";
+import Logo from "../../assets/news.png"
 
 const Search = styled('div')(({ theme }) => ({
 
@@ -65,6 +67,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const SearchAppBar = () => {
+  const { handleFunction } = useContext(GlobalContext)
+
+  const { handleSearch } = handleFunction;
+
   const navigate = useNavigate()
 
   const home = () => {
@@ -110,13 +116,18 @@ const SearchAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
+          {/* <img src={Logo} width="45"/> */}
           <Typography
             onClick={home}
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, cursor: 'pointer', display: { xs: 'none', sm: 'block' } }}
-          >KABAR BARU
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          ><Typography sx={{
+            cursor: 'pointer',
+            width: 'fit-content'
+          }}>DTS NEWS
+            </Typography>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -125,6 +136,7 @@ const SearchAppBar = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleSearch}
             />
           </Search>
 
@@ -159,8 +171,10 @@ const SearchAppBar = () => {
                 <MenuItem onClick={onLogout}>Logout</MenuItem>
               </Menu>
             </> :
-            
-            <Button onClick={login} color="inherit" className={({ isActive }) => isActive ? 'nav-active' : 'nav-inactive'}>Login</Button>
+
+            <Button onClick={login} color="inherit" className={({ isActive }) => isActive ? 'nav-active' : 'nav-inactive'} sx={{
+              marginLeft: '1rem'
+            }}>Login</Button>
           }
         </Toolbar>
       </AppBar>

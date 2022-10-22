@@ -7,6 +7,7 @@ export const GlobalContext = createContext();
 export const GlobalProvider = (props) => {
   const navigate = useNavigate()
   const [link, setLink] = useState([]);
+  const [search, setSearch] = useState('')
 
   const handleDetail = (e) => {
     let id = parseInt(e.target.value);
@@ -15,17 +16,25 @@ export const GlobalProvider = (props) => {
       .then((res) => {
         let result = res.data.posts[id].link
         setLink(result)
-        navigate('/detail')
+        navigate(`/detail/${id}`)
       })
+  }
+
+  const handleSearch = (e) => {
+    let value = e.target.value;
+    setSearch(value)
   }
 
   let state = {
     link,
     setLink,
+    search,
+    setSearch,
   };
 
   let handleFunction = {
     handleDetail,
+    handleSearch,
   };
 
   return (
