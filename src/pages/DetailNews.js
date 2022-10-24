@@ -1,31 +1,39 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
-import { Navigate, useParams } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
-import { useContext } from "react"
-import { GlobalContext } from "../context/GlobalContext"
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { Box, CardContent, CardMedia, Skeleton, Typography } from "@mui/material"
 import { Container } from "@mui/system"
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Skeleton, Typography } from "@mui/material"
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import axios from "axios"
+import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { GlobalContext } from "../context/GlobalContext"
 
 const DetailNews = () => {
   const navigate = useNavigate()
-
-  const { state } = useContext(GlobalContext);
-  const { link } = state;
+  const { state } = useContext(GlobalContext)
+  const { link } = state
 
   const [datas, setDatas] = useState(null)
 
   const home = () => {
+    localStorage.clear("detail")
     navigate('/')
   }
-
   useEffect(() => {
-    axios.get(`${link}`)
-      .then((res) => {
-        setDatas(res.data.detail_post)
-      })
-  }, [])
+    if (link === null) {
+      setTimeout(() => {
+        axios.get(localStorage.getItem('detail'))
+          .then((res) => {
+            setDatas(res.data.detail_post)
+          })
+      }, 2000);
+    } else if (link !== null) {
+      setTimeout(() => {
+        axios.get(localStorage.getItem('detail'))
+          .then((res) => {
+            setDatas(res.data.detail_post)
+          })
+      }, 2000);
+    }
+  }, [link])
 
   return (
     <>
@@ -45,7 +53,6 @@ const DetailNews = () => {
             <Box
               sx={{
                 display: 'flex',
-                paddingTop: '1rem',
                 alignItems: 'center',
                 margin: '0 auto',
                 paddingBottom: '1rem',

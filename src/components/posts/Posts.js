@@ -1,9 +1,9 @@
-import { Button, Card, CardActions, CardMedia, Typography, CardContent } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import axios from 'axios';
-import { useState, useEffect, useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
-import Skeleton from "../Skeleton/Skeleton"
+import Skeleton from "../Skeleton/Skeleton";
 
 const Posts = () => {
   const { state, handleFunction } = useContext(GlobalContext);
@@ -63,7 +63,7 @@ const Posts = () => {
                   return (
                     <>
                       <Card
-                        key={i}
+                        key={data.id}
                         variant="outlined"
                         sx={{
                           maxWidth: 325,
@@ -96,8 +96,10 @@ const Posts = () => {
                           display: 'flex',
                           justifyContent: 'space-between',
                         }}>
-                          <Button size='small' variant='contained' sx={{
-                          }} value={i} onClick={handleDetail} >More Detail</Button>
+                          {/* <Link to={`/detail/${result3}`}> */}
+                            <Button size='small' variant='contained' sx={{
+                            }} value={i} onClick={handleDetail} >More Detail</Button>
+                          {/* </Link> */}
                         </CardActions>
                       </Card>
                     </>

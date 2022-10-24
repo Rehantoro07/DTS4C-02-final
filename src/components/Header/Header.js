@@ -1,25 +1,24 @@
-import * as React from 'react';
-import { useState, useContext } from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { AccountCircle } from '@mui/icons-material';
+import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import { AccountCircle } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { alpha, styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import { signOut } from 'firebase/auth';
+import * as React from 'react';
+import { useContext, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
 import { GlobalContext } from '../../context/GlobalContext';
 // import { listener } from "../../utils/firebase/listener";
-import Logo from '../../assets/dove.png'
+import Logo from '../../assets/dove.png';
 
 const Search = styled('div')(({ theme }) => ({
 
@@ -74,12 +73,11 @@ const SearchAppBar = () => {
   const navigate = useNavigate()
 
   const home = () => {
-    console.log('clicked')
+    localStorage.clear("detail")
     navigate('/')
   }
 
   const login = () => {
-    console.log('clicked')
     navigate('/login')
   }
 
@@ -104,10 +102,11 @@ const SearchAppBar = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          {/* <IconButton
+    <div>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -116,75 +115,76 @@ const SearchAppBar = () => {
           >
             <MenuIcon />
           </IconButton> */}
-          <img src={Logo} width={35} style={{ cursor: 'pointer' }} onClick={home} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          ><Typography onClick={home} sx={{
-            cursor: 'pointer',
-            marginLeft: '1rem',
-            width: 'fit-content'
-          }}>DTS NEWS
+            <img src={Logo} width={35} style={{ cursor: 'pointer' }} onClick={home} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            ><Typography onClick={home} sx={{
+              cursor: 'pointer',
+              marginLeft: '1rem',
+              width: 'fit-content'
+            }}>DTS NEWS
+              </Typography>
             </Typography>
-          </Typography>
-          <Search
-            sx={{
-              marginLeft: '1rem'
-            }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleSearch}
-            />
-          </Search>
+            <Search
+              sx={{
+                marginLeft: '1rem'
+              }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleSearch}
+              />
+            </Search>
 
-          {user ?
-            <>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                sx={{
-                  marginLeft: '1rem'
-                }}
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem>{user.email}</MenuItem>
-                <MenuItem onClick={onLogout}>Logout</MenuItem>
-              </Menu>
-            </> :
+            {user ?
+              <>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                  sx={{
+                    marginLeft: '1rem'
+                  }}
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>{user.email}</MenuItem>
+                  <MenuItem onClick={onLogout}>Logout</MenuItem>
+                </Menu>
+              </> :
 
-            <Button onClick={login} color="inherit" className={({ isActive }) => isActive ? 'nav-active' : 'nav-inactive'} sx={{
-              marginLeft: '1rem'
-            }}>Login</Button>
-          }
-        </Toolbar>
-      </AppBar>
-    </Box>
+              <Button onClick={login} color="inherit" className={({ isActive }) => isActive ? 'nav-active' : 'nav-inactive'} sx={{
+                marginLeft: '1rem'
+              }}>Login</Button>
+            }
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </div>
   );
 }
 

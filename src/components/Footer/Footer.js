@@ -6,7 +6,7 @@ const Footer = () => {
       width: "100%",
       margin: '0 auto',
       padding: '30px 0',
-      marginTop: '4rem',
+      marginTop: '3.5rem',
       backgroundColor: '#1976D2',
       color: 'white',
       borderRadius: '0',

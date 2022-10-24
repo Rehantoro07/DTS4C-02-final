@@ -1,22 +1,22 @@
-import { useState, createContext } from "react";
 import axios from "axios";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const GlobalContext = createContext();
 
 export const GlobalProvider = (props) => {
   const navigate = useNavigate()
-  const [link, setLink] = useState([]);
-  const [search, setSearch] = useState('')
+  const [link, setLink] = useState(null);
+  const [search, setSearch] = useState('');
 
   const handleDetail = (e) => {
     let id = parseInt(e.target.value);
+    navigate(`/detail/${id}`)
     axios
       .get(`https://jakpost.vercel.app/api/category/indonesia/jakarta/${id}`)
       .then((res) => {
-        let result = res.data.posts[id].link
-        setLink(result)
-        navigate(`/detail/${id}`)
+        localStorage.setItem('detail', res.data.posts[id].link)
+        setLink(res.data.posts[id].link)
       })
   }
 

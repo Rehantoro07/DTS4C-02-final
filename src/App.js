@@ -1,11 +1,11 @@
-import SignIn from './components/SignIn/SignIn';
-import Register from './components/Register/Register';
-import Main from './pages/Main';
-import Header from './components/Header/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
-import DetailNews from './pages/DetailNews';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Header from './components/Header/Header';
+import Register from './components/Register/Register';
+import SignIn from './components/SignIn/SignIn';
 import { GlobalProvider } from './context/GlobalContext';
+import DetailNews from './pages/DetailNews';
+import Main from './pages/Main';
 
 function App() {
   return (
@@ -15,10 +15,10 @@ function App() {
           <div className="container">
             <Header />
             <Routes>
+              <Route path='/detail/:id' element={<DetailNews />} />
               <Route path='/login' element={<SignIn />} />
               <Route path='/register' element={<Register />} />
               <Route path='/' element={<Main />} />
-              <Route path='/detail/:id' element={<DetailNews />} />
             </Routes>
             <Footer />
           </div>
